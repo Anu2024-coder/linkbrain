@@ -10,9 +10,11 @@
       <div>ESP32 Home Automation Control SDK</div>
       <br>
       <div>
-        <strong>Version:</strong> 0.1.0<br>
-        <strong>Target:</strong> ESP32<br>
-        <strong>Language:</strong> Python 3.8+
+        <p align="center">
+          <img src="https://img.shields.io/badge/Python-3.10%2B-blue" />
+          <img src="https://img.shields.io/badge/Version-0.1.0-green" />
+          <img src="https://img.shields.io/badge/License-MIT-orange" />
+        </p>
       </div>
     </td>
   </tr>
