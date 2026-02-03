@@ -1,0 +1,15 @@
+# Python bytecode (the stuff you asked about)
+__pycache__/
+*.py[cod]
+
+# Virtual environments (common names)
+venv/
+env/
+.venv/
+
+# Environment variables / secrets (NEVER commit these)
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
