@@ -1,11 +1,27 @@
-![LinkBrain logo](assets/LinkBrain.png)
-# LinkBrain - ESP32 Home Automation Control SDK
+<div align="center">
 
-**Version:** 0.1.0  
-**Target Hardware:** ESP32  
-**Language:** Python 3.8+
+<table>
+  <tr>
+    <td align="center">
+      <img src="assets/LinkBrain.png" width="400">
+    </td>
+    <td valign="middle" align="left">
+      <h2>LinkBrain</h2>
+      <div>ESP32 Home Automation Control SDK</div>
+      <br>
+      <div>
+        <strong>Version:</strong> 0.1.0<br>
+        <strong>Target:</strong> ESP32<br>
+        <strong>Language:</strong> Python 3.8+
+      </div>
+    </td>
+  </tr>
+</table>
 
-A clean, extensible Python library for controlling ESP32-based home automation devices. This SDK provides a hardware control layer designed to be used by higher-level applications (mobile apps, web apps, desktop apps).
+</div>
+
+
+LinkBrain is a clean, extensible Python library for controlling ESP32-based home automation devices. This SDK provides a hardware control layer designed to be used by higher-level applications (mobile apps, web apps, desktop apps).
 
 ---
 
