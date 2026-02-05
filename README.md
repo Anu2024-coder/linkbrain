@@ -13,9 +13,8 @@
 </div>
 
 ---
-# LinkBrain SDK
 
-A developer framework for safely controlling ESP32-based physical systems using AI-generated intent.
+LinkBrain is an open-source framework for building LLM-driven physical agents that safely interact with real hardware through explicit controllers, device abstractions, and deterministic execution layers.
 
 ---
 
