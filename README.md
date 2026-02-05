@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/LinkBrain.png" width="420" />
+  <img src="assets/LinkBrain.png" />
 </div>
 
 <div align="center">
