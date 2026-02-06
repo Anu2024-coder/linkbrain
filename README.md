@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-  <h3>A developer framework for AI-driven physical systems</h3>
+  <h3>Giving language models a way to act in the real world</h3>
 </div>
 
 <div align="center">
@@ -14,38 +14,41 @@
 
 ---
 
-LinkBrain is an open-source framework for building LLM-driven physical agents that safely interact with real hardware through explicit controllers, device abstractions, and deterministic execution layers.
+## Overview
+**AI agents have officially found their hands.**
+
+Large Language Models are excellent at reasoning, planning, and decision-making inside digital systems. They can book flights, manage workflows, and coordinate complex tasks. But the moment you ask them to interact with the physical world—turn on a light, control a fan, lock a door—they hit a hard boundary.
+
+LinkBrain exists to remove that boundary.
+
+**LinkBrain** is an open-source AI control framework that connects LLMs to real-world hardware (such as ESP32) through a deterministic, contract-driven execution layer. It allows natural language intent to be translated into validated, explicit hardware actions—without giving AI unrestricted or unsafe access to devices.
+
+This is not a chatbot for IoT. It is a control plane for AI-driven physical systems.
 
 ---
 
-## Overview
+## What problem does LinkBrain solve?
 
-**LinkBrain** is an AI-enabled control framework that allows developers to connect large language models with ESP32 hardware through a deterministic, contract-driven execution layer. It enables natural language interaction with physical devices while ensuring that all hardware actions are validated, explicit, and auditable.
+Most AI–hardware integrations today rely on ad-hoc glue code, fragile parsing, or hundreds of lines of low-level protocol logic. This makes systems hard to reason about, unsafe to scale, and difficult to audit.
 
-The SDK is designed for engineers building AI-driven physical agents, embedded automation systems, or experimental AI–hardware integrations where safety, predictability, and system boundaries are critical.
+LinkBrain introduces a strict separation of concerns:
+
+- AI systems reason and decide
+- LinkBrain validates, constrains, and executes
+- Hardware never receives raw AI output
+
+Physical devices are exposed as structured, typed “tools” that an LLM can invoke—but only within predefined contracts.
 
 ---
 
 ## Key capabilities
+LinkBrain provides a production-oriented foundation for AI-to-hardware interaction.
 
-LinkBrain provides a structured foundation for AI-to-hardware interaction. It supports multiple communication protocols, exposes high-level device abstractions, and cleanly separates AI reasoning from physical execution. The framework is written with production-quality engineering practices, including type safety, logging, and testability.
+It supports Bluetooth (BLE) and Wi-Fi connectivity, modular ESP32 device abstractions, and structured action execution with logging and validation. The framework enforces clear boundaries between AI reasoning and physical execution, making systems predictable, testable, and auditable.
 
-Core capabilities include Bluetooth (BLE) and Wi-Fi connectivity, modular device definitions, integration with modern LLM providers, and a layered architecture that keeps AI logic isolated from hardware control.
+The SDK is designed for engineers building AI agents, embedded automation pipelines, robotics experiments, or safety-conscious AI–hardware systems.
 
 ---
-
-## Installation
-
-```bash
-pip install linkbrain
-
-# Install with AI integrations
-pip install linkbrain[ai]
-
-# Install development dependencies
-pip install linkbrain[dev]
-
-```
 
 ##  Quick Start
 
@@ -80,31 +83,31 @@ from linkbrain_core.tools import ToolRegistry
 from linkbrain_core.tools.light import LightTool
 
 async def main():
-    # Setup
     controller = ESP32Controller(mode="bluetooth")
     controller.connect()
-    
+
     light = Light("living_room", controller, pin=12)
+
     registry = ToolRegistry()
     registry.register_device("living_room", LightTool("living_room", light))
-    
-    # Initialize AI
+
     llm = AnthropicProvider(api_key="your-key")
     prompt_builder = PromptBuilder()
-    
-    # Natural language control
+
     user_input = "Turn on the living room light"
     prompt = prompt_builder.build_prompt(user_input)
+
     response = await llm.generate_structured(prompt)
-    
-    # Execute
+
     parser = ActionParser()
     parsed = parser.parse(response)
+
     await registry.execute_actions(parsed.actions)
-    
+
     controller.disconnect()
 
 asyncio.run(main())
+
 ```
 
 ##  Architecture
@@ -124,12 +127,6 @@ linkbrain_core/             # AI layer
 └── tools/                  # AI-executable tools
 ```
 
-##  Documentation
-
-- [Getting Started Guide](docs/getting_started.md)
-- [API Reference](docs/api_reference.md)
-- [Architecture Overview](docs/architecture.md)
-- [Device Development](docs/devices/)
 
 ## Supported Devices
 The SDK ships with a small set of reference device abstractions and is designed to be extended.
@@ -144,62 +141,17 @@ LinkBrain currently integrates with the following providers through structured o
 - Anthropic Claude (Haiku, Sonnet, Opus)
 - Google Gemini (Pro, Pro Vision)
 
-##  Testing
 
-```bash
-# Run all tests
-pytest
+##  Documentation
 
-# With coverage
-pytest --cov=linkbrain --cov=linkbrain_core
+- [Getting Started Guide](docs/getting_started.md)
+- [Architecture Overview](docs/architecture.md)
+- [Device Development](docs/device_development.md)
 
-# Specific module
-pytest tests/unit/test_devices/
-```
-
-##  Development
-
-```bash
-# Clone repository
-git clone https://github.com/yourusername/linkbrain.git
-cd linkbrain
-
-# Install in development mode
-pip install -e ".[dev]"
-
-# Run linters
-black .
-flake8 .
-mypy .
-
-# Run tests
-pytest
-```
-
-##  Project Structure
-
-```
-linkbrain_project/
-├── linkbrain/              # Main SDK package
-│   ├── core/               # Core communication
-│   ├── connectivity/       # Protocol implementations
-│   ├── devices/            # Device abstractions
-│   └── utils/              # Utilities
-├── linkbrain_core/         # AI integration layer
-│   ├── llm/                # LLM providers
-│   ├── parsers/            # Response parsing
-│   ├── prompts/            # Prompt templates
-│   └── tools/              # AI tools
-├── examples/               # Usage examples
-├── tests/                  # Test suite
-├── docs/                   # Documentation
-├── setup.py                # Package setup
-├── requirements.txt        # Dependencies
-└── README.md               # This file
-```
 
 ##  Contributing
 Contributions are welcome. Please review the contribution guidelines in [Contributing Guide](CONTRIBUTING.md) before submitting pull requests.
+
 
 ##  License
 
